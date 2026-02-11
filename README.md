@@ -2,7 +2,7 @@
 
 ## Zadání
 
-Cílem je navrhnout a implementovat Rate Limiter pro REST API službu, jež bude omezovat počet požadavků na klienta v daném časovém intervalu. Součastí zadaní je návrh pro Single-node i Multi-node prostředí
+Cílem je navrhnout a implementovat Rate Limiter pro REST API službu, jež bude omezovat počet požadavků na klienta v daném časovém intervalu. Součastí zadaní je návrh pro Single-node i Multi-node prostředí.
 
 
 
