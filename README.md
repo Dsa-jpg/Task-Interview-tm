@@ -68,6 +68,19 @@ public static void main(String[] args) {
 }
 ```
 
+***2. Druhé řešení je pomocí abstrakce (interfejs) a jednosměrné závislosti.***
+
+Cílem je odstranit obousměrnou závislost mezi konkretními třídami.
+
+* `ClassB` zavisí na rozhraní
+* `ClassA` implementuje toto rozhraní
+* `ClassA` již nemá přímou závislost na `ClassB`
+
+Podrobné řešení je zde:
+[Řešení pomocí abstrakce](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/cyclic-dependency/Main.java)
+
+
+***Bonus-Spring***
 
 ---
 
@@ -136,3 +149,18 @@ public static void main(String[] args) {
     b.setA(a);
 }
 ```
+
+***2. Second solution is overcome thanks to abstraction and one-way dependency.***
+
+The goal is to completely get rid of bidirectional dependency between these classes.
+
+* `ClassB` depends on interfejs 
+* `ClassA` implements this interfejs
+* `ClassA` already does not have direct dependence on `ClassB`
+
+Complete solution is available here:
+[Solution with abstraction](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/cyclic-dependency/Main.java)
+
+
+***Bonus-Spring***
+
