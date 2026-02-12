@@ -5,8 +5,19 @@
 Cílem je navrhnout a implementovat Rate Limiter pro REST API službu, jež bude omezovat počet požadavků na klienta v daném časovém intervalu. 
 Součastí zadaní je návrh pro Single-node i Multi-node prostředí.
 
-## Základní design (Single node)
+## Základní design (Single node) 
 
+
+***1.1 Definice API***
+
+Návrh jednoduchého rozhraní pro Rate Limiter za učelem znovu použitelnosti a 
+oddělení logiky rate limiteru od business logiky aplikace.
+```java
+public interface RateLimiter {
+    
+    boolean allowRequest(String clientId); 
+}
+```
 
 
 ## Distribuovaný systém (Multi node)
