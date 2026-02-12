@@ -38,7 +38,7 @@ class ClassB {
 }
 ```
 
-***1. První řešení by bylo použití setter injection tzn. že mužu vytvořit třídy bez nutnosti předaní závislostí v konstruktoru***
+***1. První řešení by bylo použití setter injection tzn. že můžu vytvořit třídy bez nutnosti předaní závislostí v konstruktoru***
 
 ```java
 class ClassA  {
@@ -82,6 +82,60 @@ Podrobné řešení je zde:
 
 ***Bonus-Spring***
 
+V Spring framework, je několik možností, jak řesit cyklické závisloti. 
+
+> [!IMPORTANT]  
+> Řešení pomocí `@Lazy` nebo setter injection může problém pouze obcházát.
+> Pokud se např.: jedná o bussiness logiku, je lepší zvážit redisign a odstranit samotnou příčinu cyklu.
+
+***1. Můžeme použít anotaci `@Lazy` v konstruktoru, kde provádím DI (dependency injection). Toto řešení umožní Springu vytvořit proxy pro dependency, která je vyřešena v runtime.***
+
+Příklad: 
+
+```java
+@Component
+public class ClassA {
+    private final ClassB b;
+    
+    public ClassA(@Lazy ClassB b) {
+        this.b = b;
+    }
+}
+
+@Component
+public class ClassB {
+    private final ClassA a;
+
+    public ClassB( ClassA a) {
+        this.a = a;
+    }
+}
+```
+***2. Možné použítí setter injection s anotací `@Autowired` -> ta injektuje závislosti při vytváření `Bean` bez závislosti, která je doplněna ve fázi inicializace kontextu.***
+
+
+```java
+@Component
+public class ClassA {
+    private ClassB b;
+
+    @Autowired
+    public void setB(ClassB b) {
+        this.b = b;
+    }
+}
+
+@Component
+public class ClassB {
+    private ClassA a;
+
+    @Autowired
+    public void setA(ClassA a) {
+        this.a = a;
+    }
+}
+```
+
 ---
 
 # Rate-Limiter - design and implementation (ENG)
@@ -97,7 +151,7 @@ Part of the task is to design it in away to be correct either in Single-node or 
 
 ---
 
-## Solution of cyclical dependencies
+## Resolving cyclic dependencies
 
 If class A depends on Class B and vice versa. This circular dependency creates problems in code base, for e.g. bad sustainability
 in which the modules are tightly connected, therefore we are unable to change a signature or reuse without it effecting the other one.
@@ -150,7 +204,7 @@ public static void main(String[] args) {
 }
 ```
 
-***2. Second solution is overcome thanks to abstraction and one-way dependency.***
+***2. Second solution is overcoming thanks to abstraction and one-way dependency.***
 
 The goal is to completely get rid of bidirectional dependency between these classes.
 
@@ -161,6 +215,64 @@ The goal is to completely get rid of bidirectional dependency between these clas
 Complete solution is available here:
 [Solution with abstraction](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/cyclic-dependency/Main.java)
 
-
 ***Bonus-Spring***
+
+In Spring framework there is few options how to solve circular dependencies.
+
+> [!IMPORTANT]  
+> Solution with `@Lazy` annotation or setter injection can lead to ignoring root cause.
+> E.g. if business logic is the case, there is better to consider redesign and removing the cause of the cycle.
+
+
+***1. With use of annotation`@Lazy` inside of constructor, where I perform DI (dependency injection).
+This solution will provide Spring ability to create proxy for dependency, which will be resolved in runtime.***
+
+Example:
+
+```java
+@Component
+public class ClassA {
+    private final ClassB b;
+    
+    public ClassA(@Lazy ClassB b) {
+        this.b = b;
+    }
+}
+
+@Component
+public class ClassB {
+    private final ClassA a;
+
+    public ClassB( ClassA a) {
+        this.a = a;
+    }
+}
+```
+***2. Possible usage of setter injection with annotation `@Autowired` -> 
+this approach injects dependency during the creation of `Bean` without dependencies, which are 
+filled in init contextual phase.***
+
+
+```java
+@Component
+public class ClassA {
+    private ClassB b;
+
+    @Autowired
+    public void setB(ClassB b) {
+        this.b = b;
+    }
+}
+
+@Component
+public class ClassB {
+    private ClassA a;
+
+    @Autowired
+    public void setA(ClassA a) {
+        this.a = a;
+    }
+}
+```
+
 
