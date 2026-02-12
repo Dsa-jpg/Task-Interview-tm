@@ -16,19 +16,58 @@ Součastí zadaní je návrh pro Single-node i Multi-node prostředí.
 
 ## Řešení cyklických závislotí
 
+Pokud třída A zavisí na třídě B a zároveň závisí na třídě A. Tato závislost vytváří problémy v code base, a to 
+např.: špatná udržitelnost jelikož moduly jsou uzce propojeny - tudíž nelze upravit nebo znovu použít, aniž by to ovlivnilo ten druhý.
 
 
 ```java
-class ClassC implements IC {
-    private IA a;
-    public void setA(IA a) { this.a = a; } // setter injection  
-
-    @Override
-    public void doC() {
-        System.out.println("C is doing something");
+class ClassA  {
+    
+    public ClassA (ClassB b){
+        this.b = b;
     }
+
+}
+
+class ClassB {
+    
+    public ClassB (ClassA a){
+        this.a = a;
+    }
+    
 }
 ```
+
+***1. První řešení by bylo použití setter injection tzn. že mužu vytvořit třídy bez nutnosti předaní závislostí v konstruktoru***
+
+```java
+class ClassA  {
+    private ClassB b;
+    
+    public void setB (ClassB b){
+        this.b = b;
+    }
+
+}
+
+class ClassB {
+    private ClassA a;
+    
+    public void setA (ClassA a){
+        this.a = a;
+    }
+    
+}
+
+// main
+public static void main(String[] args) {
+    ClassA a = new ClassA();
+    ClassB b = new ClassB();
+    a.setB(b);
+    b.setA(a);
+}
+```
+
 
 ---
 
@@ -47,14 +86,53 @@ Part of the task is to design it in away to be correct either in Single-node or 
 
 ## Solution of cyclical dependencies
 
-```java
-class ClassC implements IC {
-    private IA a;
-    public void setA(IA a) { this.a = a; } // setter injection  
+If class A depends on Class B and vice versa. This circular dependency creates problems in code base, for e.g. bad sustainability
+in which the modules are tightly connected, therefore we are unable to change a signature or reuse without it effecting the other one.
 
-    @Override
-    public void doC() {
-        System.out.println("C is doing something");
+```java
+class ClassA  {
+    
+    public ClassA (ClassB b){
+        this.b = b;
     }
+
+}
+
+class ClassB {
+    
+    public ClassB (ClassA a){
+        this.a = a;
+    }
+    
+}
+```
+
+***1. First solution would be to use setter injection i.e. i can create classes without a need to pass dependency in their constructor.***
+
+```java
+class ClassA  {
+    private ClassB b;
+    
+    public void setB (ClassB b){
+        this.b = b;
+    }
+
+}
+
+class ClassB {
+    private ClassA a;
+    
+    public void setA (ClassA a){
+        this.a = a;
+    }
+    
+}
+
+// main
+public static void main(String[] args) {
+    ClassA a = new ClassA();
+    ClassB b = new ClassB();
+    a.setB(b);
+    b.setA(a);
 }
 ```
