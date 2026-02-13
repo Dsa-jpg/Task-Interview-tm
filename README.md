@@ -1,6 +1,6 @@
 # Rate-Limiter - design and implementation (ENG)
 
-[![cz](https://img.shields.io/badge/lang-cz-blue.svg)](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/README.cz.md)
+[![cz](https://img.shields.io/badge/lang-cz-blue.svg)](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/README.cz.md) <- Click to change language
 
 ## Task
 
@@ -83,6 +83,8 @@ record RequestCounter(AtomicInteger count, long startTime){}
 ## Distributed system (Multi node)
 
 ***2.1 Issue***
+
+
 
 ***2.2 Solution***
 

@@ -1,6 +1,6 @@
 # Rate-Limiter - návrh a implementace (CZ)
 
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/README.md) <- Click to change language
 
 
 ## Zadání
@@ -80,13 +80,28 @@ record RequestCounter(AtomicInteger count, long startTime){}
 
 ***2.1 Problém***
 
+Při nasazení na více instancí (Multi node) dochází k lokální inkonzistenci dat mezi instancemi.
+To je způsobeno tím, že každá instance má vlastní `ConcurrentHashMap`. Díky tomu může nastat, že uživatel může poslat 
+více requestů než je v Rate Limiteru povoleno.
+
 ***2.2 Řešení***
+
+Řešením tohoto problému je sdílení stavu pro jednotlivé klienty mezi všemi instancemi prostřednictvím rychlé in-memory databáze `Redis`.
+
+- **Princip:** Namísto lokální mapy by aplikace komunikovala s Redisem, který by sloužil jako centrální čítač. Každý příchozí požadavek by provedl atomickou operaci nad klíčem klienta.
+- **Atomické operace:** Pro algoritmus Fixed Window bych využil příkazy `INCR` a `EXPIRE` (TTL - time-to-live). Tyto operace jsou v Redisu atomické, což řeší problém race conditions mezi instancemi.
+- **Reaktivní přístup:** V distribuovaném prostředí navrhuji reaktivní přístup, aby síťová latence Redisu neblokovala pracovní vlákna. Mám základní zkušenost s reaktivním programováním v Quarkusu pomocí knihovny Mutiny (objekty Uni a Multi). I když jsem zatím přímo nepoužíval knihovnu Lettuce, vím, že ve Springu plní stejnou roli – funguje jako neblokující ovladač, který místo Uni vrací Mono. Ten princip neblokujícího I/O je v obou světech totožný.
+
 
 ## Integrace a produkční nasazení
 
 ***3.1 Konfigurace***
 
-***3.2 Testovaní***
+Konfiguraci bych uložil do databáze jako zdroj pravdy pro vsechny instance. Zároveň bych na každé instanci měl lokalní cache a TTL lokalní cache bych lehce randomizoval v určitém intervalu (např. 30–45 s), aby nedocházelo k hromadné expiraci na všech instancích zároveň..
+
+Pak to bude fungovat ,že přijde request a nejdříve se podívám do lokalní cache pokud tam je config a je validní tak ho použiji. V případě, že config tam není nebo má vypršelou platnost, tak se podívám do DB, kde mám veškerou konfiguraci. Tím je možné měnit limity dynamicky bez restartu aplikace.
+
+***3.2 Testovaní*** TODO
 
 ---
 
