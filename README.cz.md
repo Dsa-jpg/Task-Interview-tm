@@ -32,7 +32,7 @@ public interface RateLimiter {
     /*
      * @param clientId - identifikátor klienta (např.: api-key, userID nebo IP adresa) 
      * @return true pokud je požadavek povolen na zakladně algoritmu,
-     *         false pokud by překročen limit
+     *         false pokud by byl překročen limit
      */
     boolean allowRequest(String clientId); 
 }
@@ -61,7 +61,7 @@ Pro učel tohoto ůkolu bych vybral pro single node ***Fixed Window Counter***, 
 Jsem si vědom, že tento algoritmus má problém při špičkách v provozu a pokud by systém vyžadoval přesnost zvažoval bych mezi Token Bucket nebo Sliding Window algoritmu.
 
 
-***1.3 Datová struktura***
+***1.3 Datová struktura a Concurrency***
 
 Pro ukladání jednotlivých stavů klientů bych zvolil `ConcurrentHashMap<K,V>`,protože se jedná o thread safe implementace `Map<K,V>`, která umožňuje bezpečný souběžný přístup z více vláken.
 `ConcurrentHashMap` umožňuje bezpečně více vláknům číst a zapisovat souběžně. Minimalizuje potřebu globalní synchronizace celé mapy.
@@ -73,6 +73,8 @@ ConcurrentHashMap<String, RequestCounter> clientsMap; // String reprezetuje id u
 ```java
 record RequestCounter(AtomicInteger count, long startTime){}
 ```
+> [!NOTE]  
+> `AtomicInteger` používám pro atomickou inkrementaci hodnoty `count`, aby nedocházeno k race conditions při paralelismu.
 
 ## Distribuovaný systém (Multi node)
 

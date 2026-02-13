@@ -45,7 +45,7 @@ Whole implementation is available on this link: [Rate Limiter]()
 Before choosing a specific algorithm (E.g. Token Bucket, Leaky Bucket, Fixed Window Counter) there is need to propose and ***understand characteristics of whole service***.
 
 Without this analysis I would not be able to decide suitable algorithm, because every algorithm excels and solves other problems and in fact has different trade-offs. 
-(E.g accuracy, performance and complexity of algorithm implementation )
+(E.g. accuracy, performance and complexity of algorithm implementation )
 
 
 
@@ -63,10 +63,10 @@ For purpose of this task I have chosen for single node***Fixed Window Counter***
 I'm well aware that this algorithm has its shortcomings (e.g. in traffic peaks or if accuracy would be required I would consider these two algorithms Token Bucket and Sliding Window ).
 
 
-***1.3 Data structures*** //TODO
+***1.3 Data structures and Concurrency*** 
 
-For saving every single state of client requests i would choose `ConcurrentHashMap<K,V>`, because it is thread safe implementation of `Map<K,V>`
-,which provides safe concurrent access from multiple threads. `ConcurrentHashMap` allows mutliple threads to safely write and read concurrently. While it minimalizes the need of global synchronization of whole map.
+For saving every single state of client requests I would choose `ConcurrentHashMap<K,V>`, because it is thread safe implementation of `Map<K,V>`
+,which provides safe concurrent access from multiple threads. `ConcurrentHashMap` allows multiple threads to safely write and read concurrently. While it minimalizes the need of global synchronization of whole map.
 
 ```java
 ConcurrentHashMap<String, RequestCounter> clientsMap; // String represents id of user
@@ -107,7 +107,7 @@ class ClassB {
 }
 ```
 
-***1. First solution would be to use setter injection i.e. i can create classes without a need to pass dependency in their constructor.***
+***1. First solution would be to use setter injection i.e. I can create classes without a need to pass dependency in their constructor.***
 
 ```java
 class ClassA  {
