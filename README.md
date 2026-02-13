@@ -47,8 +47,6 @@ Before choosing a specific algorithm (E.g. Token Bucket, Leaky Bucket, Fixed Win
 Without this analysis I would not be able to decide suitable algorithm, because every algorithm excels and solves other problems and in fact has different trade-offs. 
 (E.g. accuracy, performance and complexity of algorithm implementation )
 
-
-
 - ***Traffic pattern*** - find out, if the service traffic is constant or if there is sudden peaks in specific times.
 - ***Requirements for system*** - if I choose complex algorithm for solution, which would have required simpler approach. It can lead to latency rise.
 - ***Scaling and Flexibility*** - I need to think about it at coarser scale. In a way that I would not be forced in future to reconsider whole approach. (i.e potential rise of user population -> horizontal scaling etc. ) 
@@ -85,15 +83,29 @@ record RequestCounter(AtomicInteger count, long startTime){}
 ***2.1 Issue***
 
 
+With multiple instances of the application, a problem arises because the state of the rate limiter is stored locally on each instance (E.g. in a `ConcurrentHashMap`). As a result, each instance maintains its own memory and counter, and there is no shared state between them.
+
+E.g. there is limit set for 100 requests/minute per user and application is running in 3 instances, client can sent close to 300 req/min.
+
 
 ***2.2 Solution***
+
+To solve this issue, I would like to propose global shared database (E.g. `Redis`), which will atomically change counter for each client across all instances.
+
+- **Atomic operations:** For chosen Fixed Window algoritm I would use built-in commands `INCR` a `EXPIRE` (TTL - time-to-live). This atomic operations solves the issues with race conditions between instances. 
+- **Reactive approach:** I would introduce reactive approach specifically in distributed environment. This way solves communication to Redis won't block working threads. From my basic experience with reactive programing in Quarkus with Munity framework (objects Uni a Multi). Even thought I have not used reactive approach in Spring yet. I have found out there is similar convention Mono/Flux.
+
 
 
 ## Integration and Production deployment
 
 ***3.1 Configuration***
 
-***3.2 Testing***
+The configuration will be store in separate database as source of truth for all instances. At the same time, each instance will maintain a local cache with a randomized TTL (e.g., 30–45 seconds) to prevent simultaneous expiration on multiple instances.
+
+The flow would work as follows: when a request arrives, the application first checks the local cache for a valid configuration. If the configuration is missing or expired, a query is made to the database to retrieve the current configuration and update the local cache.
+
+***3.2 Testing***TODO
 
 ---
 

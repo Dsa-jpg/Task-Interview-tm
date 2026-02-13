@@ -80,9 +80,11 @@ record RequestCounter(AtomicInteger count, long startTime){}
 
 ***2.1 Problém***
 
-Při nasazení na více instancí (Multi node) dochází k lokální inkonzistenci dat mezi instancemi.
-To je způsobeno tím, že každá instance má vlastní `ConcurrentHashMap`. Díky tomu může nastat, že uživatel může poslat 
-více requestů než je v Rate Limiteru povoleno.
+Při nasazení aplikace ve více instancích dochází k problému, pokud je stav rate limiteru uložen pouze lokálně (například v `ConcurrentHashMap`). Každá instance má totiž vlastní paměť a vlastní counter, takže mezi nimi neexistuje sdílený stav.
+
+V důsledku toho limit neplatí globálně, ale pouze na úrovni jednotlivé instance. Pokud je například nastaven limit 100 požadavků za minutu a aplikace běží na třech instancích, může klient ve výsledku odeslat až 300 požadavků za minutu.
+
+Aby byl limit skutečně globální napříč všemi instancemi, je nutné použít sdílené úložiště (např. Redis), které bude držet centralizovaný counter.
 
 ***2.2 Řešení***
 
