@@ -82,7 +82,7 @@ record RequestCounter(AtomicInteger count, long startTime){}
 
 ***2.2 Řešení***
 
-## Integration and Production deployment
+## Integrace a produkční nasazení
 
 ***3.1 Konfigurace***
 
