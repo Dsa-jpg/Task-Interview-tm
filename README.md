@@ -82,6 +82,17 @@ record RequestCounter(AtomicInteger count, long startTime){}
 
 ## Distributed system (Multi node)
 
+***2.1 Issue***
+
+***2.2 Solution***
+
+
+## Integrace a produkční nasazení
+
+***3.1 Configuration***
+
+***3.2 Testing***
+
 ---
 
 ## Resolving cyclic dependencies

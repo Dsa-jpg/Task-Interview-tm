@@ -78,6 +78,15 @@ record RequestCounter(AtomicInteger count, long startTime){}
 
 ## Distribuovaný systém (Multi node)
 
+***2.1 Problém***
+
+***2.2 Řešení***
+
+## Integration and Production deployment
+
+***3.1 Konfigurace***
+
+***3.2 Testovaní***
 
 ---
 
