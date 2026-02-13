@@ -38,7 +38,7 @@ public interface RateLimiter {
     boolean allowRequest(String clientId); 
 }
 ```
-Whole implementation is available on this link: [Rate Limiter]()
+Whole implementation is available on this link: [Rate Limiter](https://github.com/Dsa-jpg/RateLimiterInverview/tree/master/src/main/java/org/nachtman/ratelimiterdemo)
 
 ***1.2 Choice of algorithm***
 
