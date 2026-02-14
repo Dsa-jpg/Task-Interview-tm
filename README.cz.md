@@ -11,7 +11,7 @@ Součastí zadaní je návrh pro Single-node i Multi-node prostředí.
 ## Postup 
 
 
-Bez omezení počtu požadavků na službu může dojít:
+Bez omezení počtu požadavků na službu může dojít k :
 
 - přetížení aplikační vyrstvy
 - využítí všech systémových zdrojů (CPU, RAM, DB connection Pool)
