@@ -104,6 +104,10 @@ Konfiguraci bych uložil do databáze jako zdroj pravdy pro vsechny instance. Z�
 
 Pak to bude fungovat ,že přijde request a nejdříve se podívám do lokalní cache pokud tam je config a je validní tak ho použiji. V případě, že config tam není nebo má vypršelou platnost, tak se podívám do DB, kde mám veškerou konfiguraci. Tím je možné měnit limity dynamicky bez restartu aplikace.
 
+> [!NOTE]  
+> Nebo můžu config uložit jako `ConfigMap/Secret` v K8s a při aktualizaci configu provedu `Rolling Update`.
+
+
 ***3.2 Testovaní*** TODO
 
 ---
