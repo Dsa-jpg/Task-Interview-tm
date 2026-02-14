@@ -50,7 +50,7 @@ výkonem a složitostí implementace daného algoritmu.
 
 - ***Traffic pattern*** - zjistit, zda je provoz služby konstatní nebo dochází k špičkám v určítých hodinách.
 - ***Požadavky na systém*** - pokud zvolím komplexní algoritmus pro řešení, jež by vyžadovalo jednoduchý scenář, mohu zbůsobit zvýšení latence a snížít výkon služby pro uživatele.
-- ***Škálovaní a Flexibilita*** - potřebuji taky přemýšlet do budoucna, aby byl algoritmus vhodný při expanzi systém. (tzn. zda služba bude na jedné instanci nebo budu horizontalně škalovat atd.)
+- ***Škálovaní a Flexibilita*** - potřebuji také přemýšlet do budoucna, aby byl algoritmus vhodný při expanzi systém. (tzn. zda služba bude na jedné instanci nebo budu horizontalně škalovat atd.)
 
 Pro učel tohoto ůkolu bych vybral pro single node ***Fixed Window Counter***, protože:
 
