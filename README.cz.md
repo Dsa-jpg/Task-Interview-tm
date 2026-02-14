@@ -94,6 +94,7 @@ Aby byl limit skutečně globální napříč všemi instancemi, je nutné použ
 - **Atomické operace:** Pro algoritmus Fixed Window bych využil příkazy `INCR` a `EXPIRE` (TTL - time-to-live). Tyto operace jsou v Redisu atomické, což řeší problém race conditions mezi instancemi.
 - **Reaktivní přístup:** V distribuovaném prostředí navrhuji reaktivní přístup, aby síťová latence Redisu neblokovala pracovní vlákna. Mám základní zkušenost s reaktivním programováním v Quarkusu pomocí knihovny Mutiny (objekty Uni a Multi). I když jsem zatím přímo nepoužíval knihovnu Lettuce, vím, že ve Springu plní stejnou roli – funguje jako neblokující ovladač, který místo Uni vrací Mono. Ten princip neblokujícího I/O je v obou světech totožný.
 
+![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/RateLimiter.gif)
 
 ## Integrace a produkční nasazení
 
