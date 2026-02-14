@@ -107,6 +107,7 @@ Pak to bude fungovat ,že přijde request a nejdříve se podívám do lokalní 
 > [!NOTE]  
 > Nebo můžu config uložit jako `ConfigMap/Secret` v K8s a při aktualizaci configu provedu `Rolling Update`.
 
+![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/SequenceDiagram.gif)
 
 ***3.2 Testovaní*** TODO
 
