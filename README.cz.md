@@ -42,7 +42,7 @@ Celá implementace na odkazu: [Rate Limiter](https://github.com/Dsa-jpg/RateLimi
 
 ***1.2 Volba Algoritmu***
 
-Před samotným výběrem konkretního algoritmu (např.: Token Bucket, Leaky Bucket, Fixed Window Counter) je potřeba nejdříve stanovit a
+Před samotným výběrem konkrétního algoritmu (např.: Token Bucket, Leaky Bucket, Fixed Window Counter) je potřeba nejdříve stanovit a
 ***pochopit charakteristiku dané služby***.
 
 Bez této analýzy nelze určit optimalní algoritmus, protože každý z nich řeší jíný problém a zárověň mají odlišné trade-off mezi přesností,
