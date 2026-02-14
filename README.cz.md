@@ -52,13 +52,13 @@ výkonem a složitostí implementace daného algoritmu.
 - ***Požadavky na systém*** - pokud zvolím komplexní algoritmus pro řešení, jež by vyžadovalo jednoduchý scenář, mohu zbůsobit zvýšení latence a snížít výkon služby pro uživatele.
 - ***Škálovaní a Flexibilita*** - potřebuji také přemýšlet do budoucna, aby byl algoritmus vhodný při expanzi systém. (tzn. zda služba bude na jedné instanci nebo budu horizontalně škalovat atd.)
 
-Pro učel tohoto ůkolu bych vybral pro single node ***Fixed Window Counter***, protože:
+Pro učel tohoto úkolu bych vybral pro single node ***Fixed Window Counter***, protože:
 
 - je jednoduchý na implementaci
 - má nízkou paměťovou náročnost
 - je vhodný pro základní omezení počtu požadavků v definovaném časovém intervalu 
 
-Jsem si vědom, že tento algoritmus má problém při špičkách v provozu a pokud by systém vyžadoval přesnost zvažoval bych mezi Token Bucket nebo Sliding Window algoritmu.
+Jsem si vědom, že tento algoritmus má problém při špičkách v provozu a pokud by systém vyžadoval přesnost zvažoval bych mezi Token Bucket nebo Sliding Window algoritmem.
 
 
 ***1.3 Datová struktura a Concurrency***
@@ -102,7 +102,7 @@ Aby byl limit skutečně globální napříč všemi instancemi, je nutné použ
 
 Konfiguraci bych uložil do databáze jako zdroj pravdy pro vsechny instance. Zároveň bych na každé instanci měl lokalní cache a TTL lokalní cache bych lehce randomizoval v určitém intervalu (např. 30–45 s), aby nedocházelo k hromadné expiraci na všech instancích zároveň..
 
-Pak to bude fungovat ,že přijde request a nejdříve se podívám do lokalní cache pokud tam je config a je validní tak ho použiji. V případě, že config tam není nebo má vypršelou platnost, tak se podívám do DB, kde mám veškerou konfiguraci. Tím je možné měnit limity dynamicky bez restartu aplikace.
+Pak to bude fungovat, že přijde request a nejdříve se podívám do lokalní cache pokud tam je config a je validní tak ho použiji. V případě, že config tam není nebo má vypršenou platnost, tak se podívám do DB, kde mám veškerou konfiguraci. Tím je možné měnit limity dynamicky bez restartu aplikace.
 
 > [!NOTE]  
 > Nebo můžu config uložit jako `ConfigMap/Secret` v K8s a při aktualizaci configu provedu `Rolling Update`.
