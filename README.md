@@ -95,7 +95,7 @@ To solve this issue, I would like to propose global shared database (E.g. `Redis
 - **Atomic operations:** For chosen Fixed Window algoritm I would use built-in commands `INCR` a `EXPIRE` (TTL - time-to-live). This atomic operations solves the issues with race conditions between instances. 
 - **Reactive approach:** I would introduce reactive approach specifically in distributed environment. This way solves communication to Redis won't block working threads. From my basic experience with reactive programing in Quarkus with Munity framework (objects Uni a Multi). Even thought I have not used reactive approach in Spring yet. I have found out there is similar convention Mono/Flux.
 
-
+![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/RateLimiter.gif)
 
 ## Integration and Production deployment
 
