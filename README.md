@@ -108,7 +108,15 @@ The flow would work as follows: when a request arrives, the application first ch
 > [!NOTE]  
 > Or possibly save config as `ConfigMap/Secret` in K8s and preform `Rolling Update`.
 
-***3.2 Testing***TODO
+***3.2 Testing***
+
+***3.2.1Unit Tests***
+
+***3.2.2 Concurrency Tests***
+
+***3.2.3 Integration Tests***
+
+***3.2.4 Load Testing***
 
 ---
 
