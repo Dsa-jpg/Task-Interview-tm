@@ -109,7 +109,23 @@ Pak to bude fungovat ,že přijde request a nejdříve se podívám do lokalní 
 
 ![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/SequenceDiagram.gif)
 
-***3.2 Testovaní*** TODO
+***3.2 Testovaní*** 
+
+3.2.1 Unit Tests
+
+Použil bych unit testy k ověření, že algoritmus funguje správně v následujících scénářích:
+
+-Prvních N požadavků vrací HTTP 200 OK.
+-(N+1) požadavek vrací HTTP 429 Too Many Requests.
+-Limit se správně resetuje po uplynutí každého časového okna.
+
+3.2.2 Concurrency Tests
+
+Otestoval bych thread-safety Rate Limiteru pomocí více paralelních vláken. Použil bych `ExecutorServic` pro spuštění více vláken současně a `CountDownLatch`, aby všechna vlákna začala volat `allowRequest(clientId)` ve stejný okamžik. Cílem je ověřit, že i při současných požadavcích Rate Limiter nikdy nepovolí více requestů než je nastavený limit.
+
+3.2.4 Load Testing
+
+Použil bych Apache JMeter pro simulaci více souběžných uživatelů. Nakonfiguroval bych Thread Group s vysokým počtem vláken a posílal požadavky na endpoint s Rate Limiterem. Poté bych ověřil, že počet odpovědí HTTP 200 nikdy nepřesáhne nastavený limit a všechny zbývající požadavky vrací HTTP 429.
 
 ---
 
