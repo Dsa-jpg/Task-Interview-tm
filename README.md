@@ -105,6 +105,9 @@ The configuration will be store in separate database as source of truth for all 
 
 The flow would work as follows: when a request arrives, the application first checks the local cache for a valid configuration. If the configuration is missing or expired, a query is made to the database to retrieve the current configuration and update the local cache.
 
+> [!NOTE]  
+> Or possibly safe config as `ConfigMap/Secret` in K8s and preform `Rolling Update`.
+
 ***3.2 Testing***TODO
 
 ---
