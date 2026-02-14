@@ -110,7 +110,7 @@ The flow would work as follows: when a request arrives, the application first ch
 
 ***3.2 Testing***
 
-***3.2.1Unit Tests***
+***3.2.1 Unit Tests***
 
 ***3.2.2 Concurrency Tests***
 
