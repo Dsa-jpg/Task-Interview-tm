@@ -114,11 +114,22 @@ The flow would work as follows: when a request arrives, the application first ch
 
 ***3.2.1 Unit Tests***
 
+I would use unit tests to ensure that the algorithm works properly in the following scenarios:
+
+- The first N requests return HTTP 200 OK.
+- The (N+1)th request returns HTTP 429 Too Many Requests.
+- The limit resets correctly after each time window expires.
+
 ***3.2.2 Concurrency Tests***
 
-***3.2.3 Integration Tests***
+I would test thread-safety of the Rate Limiter using multiple concurrent threads.
+I would use `ExecutorService` to run multiple threads in parallel, combined with a `CountDownLatch` to start them at the same time.
+Each thread would call `allowRequest(clientId)` simultaneously.
+The goal is to ensure that, even under certain concurrent requests, the Rate Limiter never allows more requests than the configured limit.
 
 ***3.2.4 Load Testing***
+
+I would use Apache JMeter to simulate multiple concurrent users. I would configure a Thread Group with a high number of threads and send requests to the protected endpoint. Then I would verify that the number of HTTP 200 responses does not exceed the configured limit and that the remaining requests return HTTP 429.
 
 ---
 
