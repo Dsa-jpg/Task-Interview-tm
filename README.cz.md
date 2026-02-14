@@ -45,7 +45,7 @@ Celá implementace na odkazu: [Rate Limiter](https://github.com/Dsa-jpg/RateLimi
 Před samotným výběrem konkrétního algoritmu (např.: Token Bucket, Leaky Bucket, Fixed Window Counter), je potřeba nejdříve stanovit a
 ***pochopit charakteristiku dané služby***.
 
-Bez této analýzy nelze určit optimalní algoritmus, protože každý z nich řeší jíný problém a zároveň mají odlišné trade-off mezi přesností,
+Bez této analýzy nelze určit optimalní algoritmus, protože každý z nich řeší jíný problém a zároveň má odlišné trade-off mezi přesností,
 výkonem a složitostí implementace daného algoritmu.
 
 - ***Traffic pattern*** - zjistit, zda je provoz služby konstatní nebo dochází k špičkám v určítých hodinách.
