@@ -108,7 +108,7 @@ The flow would work as follows: when a request arrives, the application first ch
 > [!NOTE]  
 > Or possibly save config as `ConfigMap/Secret` in K8s and preform `Rolling Update`.
 
-![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/RateLimiter.gif)
+![Alt Text](https://github.com/Dsa-jpg/Task-Interview-tm/blob/main/SequenceDiagram.gif)
 
 ***3.2 Testing***
 
